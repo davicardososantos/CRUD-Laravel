@@ -7,6 +7,11 @@ use App\Models\Survey;
 
 class SurveyController extends Controller
 {
+    public function index()
+    {
+        $surveys = Survey::all();
+        return view('admin.home', compact('surveys'));
+    }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -26,6 +31,10 @@ class SurveyController extends Controller
             'favorite_animals' => $validatedData['animal'],
             'message' => $validatedData['message'],
         ]);
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'Formulário enviado com sucesso!']);
+        }
 
         return redirect()->back()->with('success', 'Formulário enviado com sucesso!');
     }

@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App - Cadastro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- FAVICON --}}
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="{{ env('APP_URL_PUBLIC') }}/apple-touch-icon.png?v={{ env('VERSION') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ env('APP_URL_PUBLIC') }}/favicon-32x32.png?v={{ env('VERSION') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ env('APP_URL_PUBLIC') }}/favicon-16x16.png?v={{ env('VERSION') }}">
+    <link rel="manifest" href="{{ env('APP_URL_PUBLIC') }}/site.webmanifest?v={{ env('VERSION') }}">
 </head>
 
 <body>

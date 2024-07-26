@@ -2,16 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 
 // ADMIN
-Route::get('//admin/home', function () {
-    return view('admin.home');
-})->name('admin');
-
-Route::get('//admin/users', function () {
-    return view('admin.home');
-})->name('admin');
+Route::get('/login', function () {
+    return view('admin.login');
+})->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::get('//admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
+Route::get('//admin/users', [UserController::class, 'index'])->middleware('auth')->name('admin.users');
+Route::get('//admin/{segment?}', [SurveyController::class, 'index'])->middleware('auth')->where('segment', 'home?')->name('admin.home');
+Route::get('//admin/reset', function () {
+    return view('admin.reset');
+})->middleware('auth')->name('admin.reset');
+Route::post('/reset', [UserController::class, 'updatePerfil'])->middleware('auth')->name('perfil.post');
+Route::post('/users', [UserController::class, 'store'])->middleware('auth')->name('users.store');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('auth');
+Route::post('/survey', [SurveyController::class, 'store'])->middleware('auth')->name('survey.store');
 // APP
 
 Route::get('/', function () {
